@@ -24,12 +24,12 @@ router.post("/", (req, res) => {
 			});
 		})
 		.catch((err) => {
-			console.log(err);
+			res.json(err);
 		});
 	//
 });
 
-router.post("/", (req, res) => {
+router.post("/reg", (req, res) => {
 	const pw = req.body.password;
 
 	bcrypt.genSalt(saltRounds, (err, salt) => {
@@ -49,6 +49,35 @@ router.post("/", (req, res) => {
 			console.log(saveUser);
 		});
 	});
+});
+
+router.post("/update", (req, res) => {
+	const un = req.body.username;
+
+	const user = Usermodel.findOneAndUpdate(
+		{ username: un },
+		{ $push: { like: req.body.like } }
+	)
+		.then((data) => {
+			console.log(data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+router.post("/remove", (req, res) => {
+	const un = req.body.username;
+
+	const user = Usermodel.findOneAndRemove(
+		{ username: un },
+		{ $push: { like: req.body.like } }
+	)
+		.then((data) => {
+			console.log(data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
 module.exports = router;
