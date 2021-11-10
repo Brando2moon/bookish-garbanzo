@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-router.get("/logged", (req, res) => {
+router.post("/", (req, res) => {
 	const un = req.body.username;
 	const pws = req.body.password;
 
